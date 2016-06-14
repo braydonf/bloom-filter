@@ -42,6 +42,8 @@ var filter = new BloomFilter({
   nFlags: 0 // flags used to update the filter when matched
 });
 
+// create a very large filter
+var filter = BloomFilter.create(10000000, 0.01, false, false, true /* disables max size */);
 
 ```
 ## Browser
