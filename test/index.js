@@ -229,6 +229,7 @@ describe('Bloom', function() {
       assert(filter.contains(a));
       filter.clear();
       assert(!filter.contains(a));
+      filter.vData.should.deep.equal(new Buffer('00', 'hex'));
     });
 
     it('use the max size', function() {
