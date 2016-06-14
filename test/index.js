@@ -259,6 +259,13 @@ describe('Bloom', function() {
       filter.inspect().should.equal('<BloomFilter:1,0,152 nHashFuncs:5 nTweak:0 nFlags:0 noMaxSize:true>');
     });
 
+    it('trucate large filter in console', function() {
+      var filter = Filter.create(9000000, 0.01, false, false, true);
+      var expected = '<BloomFilter:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0... ' +
+          'nHashFuncs:6 nTweak:0 nFlags:0 noMaxSize:true>';
+      filter.inspect().should.equal(expected);
+    });
+
   });
 
 });
