@@ -71,6 +71,16 @@ describe('Bloom', function() {
       }).to.throw('Data object should include filter data "vData"');
     });
 
+    it('error if vData exceeds max', function(){
+      expect(function(){
+        var a = new Filter({vData: Array(10000000)});
+      }).to.throw('"vData" exceeded');
+    });
+
+    it('will not error if vData exceeds max and noMaxSize is enabled', function(){
+      var a = new Filter({vData: Array(10000000), noMaxSize: true, nHashFuncs: 20});
+    });
+
     it('error if missing nHashFuncs', function(){
       expect(function(){
         var a = new Filter({vData: [121, 12, 200]});
@@ -222,7 +232,13 @@ describe('Bloom', function() {
     });
 
     it('use the max size', function() {
-      var filter = Filter.create(100000000, 0.01);
+      var filter = Filter.create(900000000000000000000000000000000000, 0.01);
+      filter.vData.length.should.equal(Filter.MAX_BLOOM_FILTER_SIZE * 8);
+    });
+
+    it('create filter for one hundred million entries (disable maximum size)', function() {
+      var filter = Filter.create(100000000, 0.01, false, false, true);
+      filter.vData.length.should.equal(119813229);
     });
 
     it('use the max number of hash funcs', function() {
