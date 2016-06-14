@@ -153,7 +153,8 @@ describe('Bloom', function() {
         vData: new Buffer([ 97, 78, 155 ]),
         nHashFuncs: 5,
         nTweak: 0,
-        nFlags: 1
+        nFlags: 1,
+        noMaxSize: false
       };
 
       actual.should.deep.equal(expected);
@@ -180,7 +181,24 @@ describe('Bloom', function() {
         vData: new Buffer([ 206, 66, 153 ]),
         nHashFuncs: 5,
         nTweak: 2147483649,
-        nFlags: 1
+        nFlags: 1,
+        noMaxSize: false
+      };
+
+      var actual = filter.toObject();
+      actual.should.deep.equal(expected);
+
+    });
+
+    it('correctly serialize to an object with no max size', function() {
+
+      var filter = Filter.create(3, 0.01, false, false, true);
+      var expected = {
+        vData: new Buffer([ 0, 0, 0 ]),
+        nHashFuncs: 5,
+        nTweak: 0,
+        nFlags: 0,
+        noMaxSize: true
       };
 
       var actual = filter.toObject();
