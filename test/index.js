@@ -253,6 +253,12 @@ describe('Bloom', function() {
       filter.inspect().should.equal('<BloomFilter:1,0,152 nHashFuncs:5 nTweak:0 nFlags:0>');
     });
 
+    it('display in the console with noMaxSize', function() {
+      var filter = Filter.create(3, 0.01, false, false, true);
+      filter.insert(a);
+      filter.inspect().should.equal('<BloomFilter:1,0,152 nHashFuncs:5 nTweak:0 nFlags:0 noMaxSize:true>');
+    });
+
   });
 
 });
